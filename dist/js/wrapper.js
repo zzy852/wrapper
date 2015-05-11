@@ -79,19 +79,8 @@ var warpper = {
 		me._bindEvents();
 		//开始切换计时
 		me._clock = window.setTimeout(function() {
-			me.nextItem();
+			me.gotoItem(me.currentIndex + 1);
 		}, me.spped);
-	},
-	//跳至下一个
-	nextItem: function() {
-		var me = this;
-		me.nextIndex = me.currentIndex + 1;
-		if (me.nextIndex >= me.sum) {
-			me.nextIndex = 0;
-		}
-		me.inDom = me.dom.querySelectorAll("li")[me.nextIndex];
-		me.outDom = me.dom.querySelectorAll("li")[me.currentIndex];
-		me.renderAnimation();
 	},
 	/**
 	跳至某一个
@@ -100,6 +89,9 @@ var warpper = {
 		var me = this;
 		window.clearInterval(me._clock);
 		me.nextIndex = index;
+		if (me.nextIndex >= me.sum) {
+			me.nextIndex = 0;
+		}
 		me.inDom = me.dom.querySelectorAll("li")[me.nextIndex];
 		me.outDom = me.dom.querySelectorAll("li")[me.currentIndex];
 		me.renderAnimation();
@@ -130,7 +122,7 @@ var warpper = {
 			me.currentIndex = me.nextIndex;
 			//开始新一轮计时
 			me._clock = window.setTimeout(function() {
-				me.nextItem();
+				me.gotoItem(me.currentIndex + 1);
 			}, me.spped);
 			return;
 		}
